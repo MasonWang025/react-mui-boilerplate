@@ -11,12 +11,17 @@ import {
   Zoom,
   IconButton,
   Hidden,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import MenuIcon from "@material-ui/icons/Menu";
 import routes from "../data/routes";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
   navLinks: {
     color: "white",
   },
+  list: {
+    width: 250,
+    alignText: "center",
+  },
+  listItem: {
+    color: "black",
+  },
   backToTop: {
     position: "fixed",
     bottom: theme.spacing(2),
@@ -39,42 +51,62 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header(props) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const classes = useStyles();
 
   return (
     <React.Fragment>
-      <AppBar>
+      <AppBar elevation={0}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             MUI Boilerplate
           </Typography>
+          {/* for large */}
           <Hidden xsDown>
             {routes.map((route) => (
-              <Link to={route.path}>
+              <Link to={route.path} key={route.path}>
                 <Button className={classes.navLinks}>{route.name}</Button>
               </Link>
             ))}
           </Hidden>
+          {/* for mobile */}
           <Hidden smUp>
             <IconButton
               edge="start"
               className={classes.menuButton}
               color="inherit"
               aria-label="menu"
+              onClick={() => setDrawerOpen(true)}
             >
               <MenuIcon />
             </IconButton>
+
+            <Drawer
+              elevation={0}
+              anchor="right"
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+            >
+              <div
+                role="presentation"
+                onClick={() => setDrawerOpen(false)}
+                onKeyDown={() => setDrawerOpen(false)}
+              >
+                <List className={classes.list}>
+                  {routes.map((route) => (
+                    <Link key={route.path} to={route.path}>
+                      <ListItem className={classes.listItem} button>
+                        <ListItemText primary={route.name} />
+                      </ListItem>
+                    </Link>
+                  ))}
+                </List>
+              </div>
+            </Drawer>
           </Hidden>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />
-      <Container>
-        <Box my={2}>
-          {[...new Array(50)]
-            .map(() => `Cras mattis consectetur purus sit amet fermentum.`)
-            .join("\n")}
-        </Box>
-      </Container>
       <ScrollTop {...props}>
         <Fab color="secondary" size="medium" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
