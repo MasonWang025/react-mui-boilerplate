@@ -15,6 +15,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import MenuIcon from "@material-ui/icons/Menu";
+import routes from "../data/routes";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  navLinks: {
+    color: "white",
   },
   backToTop: {
     position: "fixed",
@@ -44,7 +49,11 @@ export default function Header(props) {
             MUI Boilerplate
           </Typography>
           <Hidden xsDown>
-            <Button color="inherit">Login</Button>
+            {routes.map((route) => (
+              <Link to={route.path}>
+                <Button className={classes.navLinks}>{route.name}</Button>
+              </Link>
+            ))}
           </Hidden>
           <Hidden smUp>
             <IconButton
