@@ -1,88 +1,102 @@
-import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import $ from "jquery";
+import React from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  useScrollTrigger,
+  Button,
+  Box,
+  Container,
+  Fab,
+  Zoom,
+  IconButton,
+  Hidden,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import MenuIcon from "@material-ui/icons/Menu";
 
-export default function Header() {
-  const path = useLocation().pathname; // to determine which is active
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  backToTop: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));
 
-  useEffect(() => {
-    // clicking outside the navbar closes it
-    $(document).ready(() => {
-      $(document).click(function (event) {
-        var click = $(event.target);
-        var _open =
-          $(".navbar-collapse").hasClass("show") &&
-          !$(".nav-item").hasClass("show");
-        if (_open === true && !click.hasClass("navbar-toggler")) {
-          $(".navbar-toggler").click();
-        }
-      });
-    });
-  });
+export default function Header(props) {
+  const classes = useStyles();
 
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg fixed-top">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            <h1 id="navlogotext">Boilerplate</h1>
-          </Link>
-          {/* Hamburger Menu for collapse */}
-          <button
-            className="navbar-toggler collapsed"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarColor01"
-            aria-controls="navbarColor01"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            {/* <span className="navbar-toggler-icon"></span> */}
-            <span className="icon-bar top-bar"></span>
-            <span className="icon-bar middle-bar"></span>
-            <span className="icon-bar bottom-bar"></span>
-          </button>
+    <React.Fragment>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            MUI Boilerplate
+          </Typography>
+          <Hidden xsDown>
+            <Button color="inherit">Login</Button>
+          </Hidden>
+          <Hidden smUp>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
+        </Toolbar>
+      </AppBar>
+      <Toolbar id="back-to-top-anchor" />
+      <Container>
+        <Box my={2}>
+          {[...new Array(50)]
+            .map(() => `Cras mattis consectetur purus sit amet fermentum.`)
+            .join("\n")}
+        </Box>
+      </Container>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="medium" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
+    </React.Fragment>
+  );
+}
 
-          <div className="collapse navbar-collapse" id="navbarColor01">
-            <ul className="navbar-nav ml-auto">
-              <li className={"nav-item " + (path === "/" && "active")}>
-                <Link className="nav-link" to="/">
-                  Home <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li className={"nav-item " + (path === "/about" && "active")}>
-                <Link className="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </Link>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="/">
-                    Dropdown Item
-                  </Link>
-                  <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="/">
-                    Below Divider
-                  </Link>
-                  <Link className="dropdown-item" to="/">
-                    Also Below Divider
-                  </Link>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+function ScrollTop(props) {
+  const { children } = props;
+  const classes = useStyles();
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = () => {
+    const anchor = document.querySelector("#back-to-top-anchor");
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} className={classes.backToTop}>
+        {children}
+      </div>
+    </Zoom>
   );
 }
