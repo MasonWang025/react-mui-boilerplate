@@ -1,6 +1,6 @@
 # react-mui-boilerplate
 
-Material-UI CRA Boilerplate with <b>React Routing</b> and Node Sass.
+Material-UI CRA Boilerplate with <b>React Routing</b> and Node Sass. [Demo](https://react-mui-boilerplate.netlify.app).
 
 ## MUI and React Router Navigation
 
