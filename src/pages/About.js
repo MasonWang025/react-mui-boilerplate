@@ -1,24 +1,16 @@
 import React from "react";
-import { Container, Grid, Typography, Box } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
+import Page from "../components/Page";
 
 export default function About() {
   return (
-    <div className="home page">
-      <Box
-        style={{
-          height: `calc(100vh - ${window.innerWidth > 600 ? 64 : 56}px)`,
-        }}
-      >
-        <Container>
-          <Grid>
-            <Typography variant="h3">About page</Typography>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
-              illum.
-            </p>
-          </Grid>
-        </Container>
-      </Box>
-    </div>
+    <Page>
+      <Container>
+        <Grid>
+          <Typography variant="h3">About page</Typography>
+          <Typography variant="body1">Edit src/data/routes.</Typography>
+        </Grid>
+      </Container>
+    </Page>
   );
 }

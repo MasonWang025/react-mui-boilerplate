@@ -7,9 +7,9 @@ export default function Home() {
     <Page>
       <Container>
         <Grid>
-          <Typography variant="h3">Home page</Typography>
+          <Typography variant="h3">Drop page</Typography>
           <Typography variant="body1">
-            Use a mobile screen to see what happens to the navbar.
+            Dropdown routes are supported in <b>mobile and desktop</b>.
           </Typography>
         </Grid>
       </Container>

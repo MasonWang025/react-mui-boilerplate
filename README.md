@@ -1,2 +1,21 @@
 # react-mui-boilerplate
-Material-UI CRA Boilerplate with React Routing and Node Sass.
+
+Material-UI CRA Boilerplate with <b>React Routing</b> and Node Sass.
+
+## MUI and React Router Navigation
+
+React Router will dynamically map routes (including dropdowns) found in `src/data/routes.js`.
+
+Material-UI destkop navbar and mobile drawer is preconfigured and will also dynamically map the routes found in `src/data/routes.js`.
+
+## Styles
+
+Material-UI theming and `<CssBaseline />` is already implemented. The typical `useStyles()` template is already used on the Header component. Node SASS is also configured with some commonly used styles.
+
+## Usage
+
+```bash
+git clone https://github.com/MasonWang025/react-mui-boilerplate.git
+npm install
+npm start
+```
