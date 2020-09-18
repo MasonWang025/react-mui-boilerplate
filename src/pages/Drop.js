@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Grid, Typography } from "@material-ui/core";
 import Page from "../components/Page";
 
-export default function Home() {
+export default function Drop() {
   return (
-    <Page>
+    <Page title="Drop - React MUI App" description="Drop page.">
       <Container>
         <Grid>
           <Typography variant="h3">Drop page</Typography>

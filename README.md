@@ -12,6 +12,12 @@ Material-UI destkop navbar and mobile drawer is preconfigured and will also dyna
 
 Material-UI theming and `<CssBaseline />` is already implemented. The typical `useStyles()` template is already used on the Header component. Node SASS is also configured with some commonly used styles.
 
+## Other
+
+`<Page />` is a useful re-usable component that works with the `<Header />` component. It also allows <b>easy `react-helmet` usage</b> via props.
+
+Netlify `_redirects` file inside `/public`.
+
 ## Usage
 
 ```bash

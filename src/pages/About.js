@@ -4,7 +4,7 @@ import Page from "../components/Page";
 
 export default function About() {
   return (
-    <Page>
+    <Page title="About - React MUI App" description="About page.">
       <Container>
         <Grid>
           <Typography variant="h3">About page</Typography>
